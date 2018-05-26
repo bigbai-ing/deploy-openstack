@@ -1,0 +1,8 @@
+---
+
+- name: Ensure ubuntu cloud archive for newton is added
+  apt_repository: >-
+    repo="deb http://ubuntu-cloud.archive.canonical.com/ubuntu xenial-updates/queens main"
+
+- name: Ensure apt source list is update
+  apt: update_cache=yes

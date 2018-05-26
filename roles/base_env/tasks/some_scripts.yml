@@ -1,0 +1,12 @@
+---
+
+#一些为了方便管控的脚本：
+
+- name: get instance's info
+  copy:
+    
+
+- name: upload  glance images 
+  copy:
+
+

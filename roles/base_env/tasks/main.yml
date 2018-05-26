@@ -1,0 +1,5 @@
+---
+
+- import_tasks: apt_sources_list.yml
+
+- import_tasks: some_scripts.yml
