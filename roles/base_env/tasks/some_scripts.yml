@@ -4,9 +4,14 @@
 
 - name: get instance's info
   copy:
-    
+   src: show.vm.sh
+   dest: /usr/bin/show.vm.sh
+   mode: 0755
 
 - name: upload  glance images 
   copy:
+    src: image_upload
+    dest: /usr/bin/image_upload
+    mode: 0755
 
 

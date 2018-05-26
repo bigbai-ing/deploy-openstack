@@ -1,0 +1,24 @@
+#!/bin/bash
+
+if [ -z $1 ] || [ -z $2 ];then
+   echo "Usage: $0 name image_file"
+   exit 1
+fi
+
+name=$1
+file=$2
+
+source /root/admin-openrc
+disk_virtual_size=`qemu-img info $file |grep virtual |awk -F "("  '{print $2}' |awk '{print $1}'`
+min_disk=`expr $disk_virtual_size / 1073741824`
+#echo $disk_virtual_size
+#echo $min_disk
+if test $min_disk -eq 0
+then
+	min_disk=1
+fi
+glance image-create --name $name \
+  --file $file \
+  --disk-format qcow2 --container-format bare \
+  --visibility public --progress \
+  --min-disk $min_disk

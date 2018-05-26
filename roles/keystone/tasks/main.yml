@@ -46,4 +46,4 @@
 - import_tasks: create_user_project_role.yml
 
 - import_tasks: create_others_users_service_endpoints.yml
-- import_tasks: Add_a_role_to_the_user.yml
+- import_tasks: add_a_role_to_the_user.yml

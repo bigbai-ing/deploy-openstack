@@ -4,7 +4,7 @@ ADMIN_PASS: admin
 DEMO_PASS: demo
 
 
-#all database vars
+#all user vars
 MYSQL_ROOT_PASS: mysql
 
 KEYSTONE_USER: keystone
@@ -17,7 +17,7 @@ NOVA_USER: nova
 NOVA_PASSWD: nova
 
 NOVA_API_USER: nova
-GLANCE_PASSWD: nova
+NOVA_API_PASSWD: nova
 
 NOVA_CELL_USER: nova
 NOVA_CELL_PASSWD: nova
@@ -28,5 +28,40 @@ CINDER_PASSWD: cinder
 NEUTRON_USER: neutron
 NEUTRON_PASSWD: neutron
 
+#all db vars
+MYSQL_ROOT_PASS: mysql
+
+KEYSTONE_DB_USER: keystone
+KEYSTONE_DB_PASSWD: keystone
+
+GLANCE__DB_USER: glance
+GLANCE_DB_PASSWD: glance
+
+NOVA_DB_USER: nova
+NOVA_DB_PASSWD: nova
+
+NOVA_API_DB_USER: nova
+NOVA_API_DB_PASSWD: nova
+
+NOVA_CELL_DB_USER: nova
+NOVA_CELL_DB_PASSWD: nova
+
+CINDER_DB_USER: cinder
+CINDER_DB_PASSWD: cinder
+
+NEUTRON_DB_USER: neutron
+NEUTRON_DB_PASSWD: neutron
+
 
 controller_ip: 
+
+
+admin_env:
+   OS_USERNAME: "admin"
+   OS_PASSWORD: "{{ ADMIN_PASS }}"
+   OS_PROJECT_NAME: "admin"
+   OS_USER_DOMAIN_NAME: "Default"
+   OS_PROJECT_DOMAIN_NAME: "Default"
+   OS_AUTH_URL: "http://controller:35357/v3"
+   OS_IDENTITY_API_VERSION: "3"
+   OS_IMAGE_API_VERSION: "2"
