@@ -1,0 +1,6 @@
+---
+
+- name: Add the components user to the service project with the admin role
+  shell:  openstack role add --project service --user {{ item.svc_name ]} admin
+  with_items:
+    - {{ USERS_INFO }}

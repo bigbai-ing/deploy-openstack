@@ -1,0 +1,27 @@
+---
+
+- name: install glance packages
+  apt:
+    name: glance
+    state: present
+
+- name: configure glance components
+  template:
+    src: "{{ item }}"
+    dest: /etc/glance/
+    backup: yes
+  with_items:
+    - glance-api.conf
+    - glance-registry.conf
+
+- name: Populate the Image service database
+  shell: su -s /bin/sh -c "glance-manage db_sync" glance
+
+- name: Restart the Image services
+  service:
+    name: "{{ item }}"
+    state: restarted
+  with_items:
+    - glance-registry
+    - glance-api
+

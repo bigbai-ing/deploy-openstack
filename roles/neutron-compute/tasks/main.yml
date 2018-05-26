@@ -1,0 +1,30 @@
+---
+
+- name: install neutron-compute node packages
+  apt:
+    name: {{ item }}
+    state: present
+  with_items:
+    - neutron-linuxbridge-agent
+
+- name: configure neutron-compute node components
+  template:
+    src: neutron.conf
+    dest: /etc/neutron/neutron.conf
+    backup: yes
+
+- name: configure neutron-compute node others components
+  block:
+    - template:
+        src: linuxbridge_agent.ini
+        dest: /etc/neutron/plugins/ml2/linuxbridge_agent.ini
+        backup: yes
+
+- name: restart the service
+  service:
+    name: {{ item }}
+    state: restarted
+    enabled: yes 
+  with_items:
+    - nova-compute
+    - neutron-linuxbridge-agent

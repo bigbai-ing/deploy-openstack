@@ -1,0 +1,63 @@
+---
+
+- name: install neutron packages
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - neutron-server
+    - neutron-plugin-ml2
+    - neutron-linuxbridge-agent
+    - neutron-l3-agent
+    - neutron-dhcp-agent
+    - neutron-metadata-agent
+
+- name: configure neutron components
+  template:
+    src: neutron.conf
+    dest: /etc/neutron/neutron.conf
+    backup: yes
+    
+- name: Config files
+  block: 
+    - template:
+        src: ml2_conf.ini
+        dest: /etc/neutron/plugins/ml2/ml2_conf.ini
+        backup: yes
+#    - template:
+#        src: openvswitch_agent.ini
+#        dest: /etc/neutron/plugins/ml2/openvswitch_agent.ini
+#        backup: yes
+    - template:
+        src: l3_agent.ini
+        dest: /etc/neutron/l3_agent.ini
+        backup: yes
+    - template:
+        src: metadata_agent.ini
+        dest: /etc/neutron/metadata_agent.ini
+        backup: yes
+    - template: 
+        src: dhcp_agent.ini
+        dest: /etc/neutron/dhcp_agent.ini
+        backup: yes
+#    - template:
+#        src: fwaas_driver.ini
+#        dest: /etc/neutron/fwaas_driver.ini
+#        backup: yes
+
+- name: Populate the database
+  shell: su -s /bin/sh -c "neutron-db-manage --config-file /etc/neutron/neutron.conf \
+  --config-file /etc/neutron/plugins/ml2/ml2_conf.ini upgrade head" neutron
+
+- name: Restart  service
+  service:
+    name: "{{ item }}"
+    state: restarted
+    enabled: yes
+  with_items:
+    - nova-api
+    - neutron-server
+    - neutron-linuxbridge-agent
+    - neutron-dhcp-agent
+    - neutron-metadata-agent
+    - neutron-l3-agent

@@ -4,9 +4,18 @@ keystone_credential_key_repository: /etc/keystone/credential-keys
 keystone_fernet_tokens_key_repository: "/etc/keystone/fernet-keys"
 keystone_token_provider: fernet
 
+USERS_INFO:
+  - {'svr_name':'glance',        'svr_type':'image'}
+  - {'svr_name':'nova',          'svr_type':'compute'}
+  - {'svr_name':'neutron',       'svr_type':'network'}
+  - {'svr_name':'cinder',        'svr_type':'volume'}
+  - {'svr_name':'placement',        'svr_type':'placement'}
+
 SERVICE_INFO:
-  - {'svc_name':'glance',      'svc_passwd':'glance'     'svc_type':'image',         'svc_desc':'OpenStack Image'}
-  - {'svc_name':'nova',        'svc_passwd':'nova'     'svc_type':'compute',       'svc_desc':'OpenStack Compute'}
-  - {'svc_name':'neutron',     'svc_passwd':'neutron'     'svc_type':'network',       'svc_desc':'OpenStack Networking'}
-  - {'svc_name':'cinder',      'svc_passwd':'cinder'     'svc_type':'volume',        'svc_desc':'OpenStack Block Storage'}
+  - {'svc_name':'glance',        'svc_passwd':'glance'       'svc_url':'http://controller:9292'                        'svc_type':'image',           'svc_desc':'OpenStack Image'}
+  - {'svc_name':'nova',          'svc_passwd':'nova'         'svc_url':'http://controller:8774/v2.1'                   'svc_type':'compute',         'svc_desc':'OpenStack Compute'}
+  - {'svc_name':'placement',     'svc_passwd':'placement'    'svc_url':'http://controller:8778'                        'svc_type':'placement',       'svc_desc':'Placement API'}
+  - {'svc_name':'neutron',       'svc_passwd':'neutron'      'svc_url':'http://controller:9696'                        'svc_type':'network',         'svc_desc':'OpenStack Networking'}
+  - {'svc_name':'cinderv2',      'svc_passwd':'cinderv2'     'svc_url':'http://controller:8776/v2/%(project_id)s'      'svc_type':'volumev2',        'svc_desc':'OpenStack Block Storage'}
+  - {'svc_name':'cinderv3',      'svc_passwd':'cinderv3'     'svc_url':'http://controller:8776/v3/%(project_id)s'      'svc_type':'volumev3',        'svc_desc':'OpenStack Block Storage'}
 
