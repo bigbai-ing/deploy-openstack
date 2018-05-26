@@ -1,0 +1,17 @@
+---
+
+- name: install ntp (chrony)
+  apt:
+    name: ntp
+    state: present
+    update_cache: yes
+
+- name: copy ntp.conf
+  copy: src=ntp.conf   dest=/etc/ntp.conf backup=yes
+
+- name: restart ntp service
+  systemd:
+    name: ntp.service
+    state: restarted
+    enabled: yes
+

@@ -1,0 +1,23 @@
+---
+
+- name: Create OS service project
+  os_project: domain_id=default description="Service Project" state=present
+              name=service enabled=True
+  environment: "{{ admin_env }}"
+
+- name: Create demo project
+  os_project: domain_id=default description="Demo Project" state=present
+              name=demo enabled=True
+  environment: "{{ admin_env }}"
+
+- name: Create demo user
+  os_user: name=demo password={{ admin_pass }} domain=default
+  environment: "{{ admin_env }}"
+
+- name: Create user role
+  os_keystone_role: name=user state=present
+  environment: "{{ admin_env }}"
+
+- name: Add the user role to the demo project and user
+  os_user_role: user=demo role=user project=demo state=present
+  environment: "{{ admin_env }}"

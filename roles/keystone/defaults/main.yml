@@ -1,0 +1,12 @@
+---
+
+keystone_credential_key_repository: /etc/keystone/credential-keys
+keystone_fernet_tokens_key_repository: "/etc/keystone/fernet-keys"
+keystone_token_provider: fernet
+
+SERVICE_INFO:
+  - {'svc_name':'glance',      'svc_passwd':'glance'     'svc_type':'image',         'svc_desc':'OpenStack Image'}
+  - {'svc_name':'nova',        'svc_passwd':'nova'     'svc_type':'compute',       'svc_desc':'OpenStack Compute'}
+  - {'svc_name':'neutron',     'svc_passwd':'neutron'     'svc_type':'network',       'svc_desc':'OpenStack Networking'}
+  - {'svc_name':'cinder',      'svc_passwd':'cinder'     'svc_type':'volume',        'svc_desc':'OpenStack Block Storage'}
+

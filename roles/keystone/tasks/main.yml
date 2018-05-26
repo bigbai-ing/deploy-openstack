@@ -1,0 +1,48 @@
+---
+
+- debug: var=MESSAGE
+
+- name: install keystone package
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - keystone
+    - python-openstackclient
+
+- name: Copy keystone configure file
+  template:
+    src: keystone.conf
+    dest: /etc/keystone/keystone.conf
+    backup: yes
+
+- import_tasks: populate_db.yml
+
+- import_tasks: keystone_fernet_keys_create.yml
+  when:
+    - "'fernet' in keystone_token_provider"
+
+- import_tasks: keystone_credential_create.yml
+
+- import_tasks: keystone_service_setup.yml
+
+
+- name: Copy apache2 conig file
+  copy:
+    src: apache2.conf
+    dest: /etc/apache2/apache2.conf
+  notify:
+    - restart apache2
+  
+- name: Remove the default SQLite database on Controller Node
+  command: rm -f /var/lib/keystone/keystone.db
+
+- name: Creating the admin-openrc  file in the /root directory
+  template: src=admin-openrc.j2 dest=/root/admin-openrc owner=root group=root mode=0755
+
+- name: Creating the demo-openrc  file in the /root directory
+  template: src=demo-openrc.j2 dest=/root/demo-openrc owner=root group=root mode=0755
+
+- import_tasks: create_user_project_role.yml
+
+- import_tasks: create_others_service.yml

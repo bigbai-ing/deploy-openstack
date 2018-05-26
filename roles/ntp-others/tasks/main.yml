@@ -1,0 +1,10 @@
+---
+
+- name: install ntpdate service
+  apt:
+    name: ntpdate
+    state: present
+    update_cache: yes
+
+- name: synchronizing time
+  shell: ntpdate {{ ntp_controller_ip }}

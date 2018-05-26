@@ -1,0 +1,6 @@
+---
+
+- name: Populate keystone database
+  shell: su -s /bin/sh -c "keystone-manage db_sync" keystone
+  run_once: yes
+

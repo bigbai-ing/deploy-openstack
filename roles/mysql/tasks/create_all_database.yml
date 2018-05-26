@@ -1,0 +1,24 @@
+---
+
+- debug: msg="Create openstack modules database and user"
+- name: create openstack modules's database
+  mysql_db:
+    login_user: root
+    login_password: {{ MYSQL_ROOT_PASS }}
+    name: {{ item.name }}
+    state: present
+  with_items: {{ ALL_DB }}
+ 
+- debug: msg="Grant proper access to the openstack modules database"
+
+- name: grant proper access to mysql database
+  mysql_user:
+    login_user: root
+    login_password: {{ MYSQL_ROOT_PASS }}
+    name: {{ item.user }}
+    password: {{ item.passwd }}
+    priv: {{ item.dbname }}.*:all,GRANT
+    host: "%"
+    state: present
+    append_privs: yes
+  with_items: {{ ALL_DB }}

@@ -1,0 +1,17 @@
+---
+
+- name: Check if fernet keys already exist
+  stat:
+    path: "{{ keystone_fernet_tokens_key_repository }}/0"
+  register: _fernet_keys
+
+- name: Initialize Fernet key repositories
+  shell: keystone-manage {{ item }} --keystone-user keystone --keystone-group keystone
+  with_items:
+    - fernet_setup
+    - credential_setup
+  when: not _fernet_keys.stat.exists
+
+- name: Rotate fernet keys for Keystone
+  shell: keystone-manage fernet_rotate --keystone-user keystone --keystone-group keystone
+  when: _fernet_keys.stat.exists

@@ -1,0 +1,9 @@
+---
+
+ALL_DB:
+  - {'dbname': 'glance', 'user': '{{ GLANCE_USER }}', 'passwd':'{{GLANCE_PASSWD}}'}
+  - {'dbname': 'nova', 'user': '{{ NOVA_USER }}i', 'passwd':'{{NOVA_PASSWD}}'}
+  - {'dbname': 'nova_api', 'user': '{{ NOVA_API_USER }}', 'passwd':'{{NOVA_API_PASSWD}}'}
+  - {'dbname': 'nova_cell0', 'user': '{{ NOVA_CELL_USER }}i', 'passwd':'{{NOVA_CELL_PASSWD}}'}
+  - {'dbname': 'neutron', 'user': '{{ NEUTRON_USER }}', 'passwd':'{{NEUTRON_PASSWD}}'}
+  - {'dbname': 'cinder', 'user': '{{ CINDER_USER }}', 'passwd':'{{CINDER_PASSWD}}'}

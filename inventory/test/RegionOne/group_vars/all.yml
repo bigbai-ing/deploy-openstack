@@ -1,0 +1,32 @@
+---
+
+ADMIN_PASS: admin
+DEMO_PASS: demo
+
+
+#all database vars
+MYSQL_ROOT_PASS: mysql
+
+KEYSTONE_USER: keystone
+KEYSTONE_PASSWD: keystone
+
+GLANCE_USER: glance
+GLANCE_PASSWD: glance
+
+NOVA_USER: nova
+NOVA_PASSWD: nova
+
+NOVA_API_USER: nova
+GLANCE_PASSWD: nova
+
+NOVA_CELL_USER: nova
+NOVA_CELL_PASSWD: nova
+
+CINDER_USER: cinder
+CINDER_PASSWD: cinder
+
+NEUTRON_USER: neutron
+NEUTRON_PASSWD: neutron
+
+
+controller_ip: 

@@ -1,0 +1,22 @@
+---
+
+- name: install memcached service
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - memcached
+    - python-memcache
+
+- name: enable accesss by other nodes via the management network
+  lineinfile:
+    path: /etc/memcached.conf
+    regexp: '-l 127.0.0.1'
+    line: '-l {{ controller_ip }}'
+    state: present
+
+- name: restart memcached service
+  service:
+    name: memcached
+    state: restarted
+    enabled: yes

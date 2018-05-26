@@ -1,0 +1,39 @@
+---
+
+- name: install mariadb-server python-pymysql
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - mariadb-server
+    - python-pymysql
+
+- name: Configuring the mysql server for the Openstack services
+  template: src=99-openstack.cnf.j2 dest=/etc/mysql/mariadb.conf.d/99-openstack.cnf
+
+- name: ensure the service is starting 
+  service: name=mysql state=started enabled=yes
+
+- name: Sets the root password
+  mysql_user:
+    name: root  
+    password: "{{ MYSQL_ROOT_PASS }}"
+    host: "{{ item }}"
+  with_items:
+    - localhost
+    - 127.0.0.1
+    - ::1
+
+- name: Deletes anonymous MySQL server user for localhost
+  mysql_user:
+    name: ''
+    host: localhost
+    state: absent
+
+- name: Removes the MySQL test database
+  mysql_db: db=test state=absent
+  
+- name: restart mysql
+  service: name=mysql state=restarted
+
+- include_tasks: create_all_database.yml

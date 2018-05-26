@@ -1,0 +1,12 @@
+---
+
+- name: install  software-properties-common 
+  apt: name=software-properties-common state=latest
+
+- name: add queens's OpenStack repository
+  apt_repository:
+    repo: cloud-archive:queens
+    update_cache: yes
+
+- name: Install OpenStack client
+  apt: name=python-openstackclient state=latest

@@ -1,0 +1,33 @@
+---
+
+- name: install rabbitmq-server
+  apt:
+    name: rabbitmq-server
+    state: present
+
+- name: Add the openstack user and Permit configuration
+  rabbitmq_user:
+    user: openstack
+    password: openstack
+    vhost: /
+    configure_priv: .*
+    read_priv: .*
+    write_priv: .*
+    state: present
+
+#或者是
+#- name: Add the openstack user and Permit configuration
+#  rabbitmq_user:
+#    user: openstack
+#    password: openstack
+#    permissions:
+#      - vhost: /
+#        configure_priv: .*
+#        read_priv: .*
+#        write_priv: .*
+#    state: present
+
+#- name: Enables the rabbitmq_management plugin
+#  rabbitmq_plugin:
+#    names: rabbitmq_management
+#    state: enabled
