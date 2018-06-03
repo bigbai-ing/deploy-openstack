@@ -5,7 +5,7 @@
   mysql_db:
     login_user: root
     login_password: {{ MYSQL_ROOT_PASS }}
-    name: {{ item.name }}
+    name: {{ item.dbname }}
     state: present
   with_items: {{ ALL_DB }}
  

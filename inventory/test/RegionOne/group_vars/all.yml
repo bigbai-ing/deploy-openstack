@@ -3,6 +3,11 @@
 ADMIN_PASS: admin
 DEMO_PASS: demo
 
+#rabbitmq user openstack password
+RABBITMQ_PASSWD: openstack
+METADATA_SECRET: METADATA_SECRET
+
+VNC_PROXY_URL: 
 
 #all user vars
 MYSQL_ROOT_PASS: mysql
@@ -28,13 +33,14 @@ CINDER_PASSWD: cinder
 NEUTRON_USER: neutron
 NEUTRON_PASSWD: neutron
 
+PLACEMENT_PASSWD: placement
 #all db vars
 MYSQL_ROOT_PASS: mysql
 
 KEYSTONE_DB_USER: keystone
 KEYSTONE_DB_PASSWD: keystone
 
-GLANCE__DB_USER: glance
+GLANCE_DB_USER: glance
 GLANCE_DB_PASSWD: glance
 
 NOVA_DB_USER: nova

@@ -8,7 +8,7 @@
 - name: Add the openstack user and Permit configuration
   rabbitmq_user:
     user: openstack
-    password: openstack
+    password: {{ RABBITMQ_PASSWD }}
     vhost: /
     configure_priv: .*
     read_priv: .*
